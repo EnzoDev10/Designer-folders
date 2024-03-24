@@ -1,19 +1,71 @@
-import os, shutil
+import os
+import shutil
+import sys
 
 
 def create_files(folder_path):
-    # 1 Creates a list that contains the names of the files
-    file_list = [
+
+    # 1 Creates a default list with predefined file names
+    default_file_list = [
         "Iconos",
         "Logos",
         "Imágenes",
         "Ideas y Ejemplos",
+        "Programador",
         "Fuentes.txt",
         "Textos.txt",
+        "Colores.txt",
+        "Versión Noche",
+        "Versión Movil",
     ]
 
+    default_subfolders_list = ["Vectores", "Fondos", "Overlays"]
+
+    # Command list:
+    # -def:  Creates the default files
+    # -cust: Creates a new list of files from zero
+    # -dmas: Creates the default files plus some more
+
+    try:
+        match (sys.argv[1]):
+            case "-cust":
+                custom_list = []
+                print(
+                    " \nEscribe uno por uno el nombre de los archivos que quieres crear."
+                )
+                print("\nPara dejar de añadir archivos escribe fin. \n")
+
+                while True:
+                    file = input("nombre del archivo: ")
+                    if file.lower() == "fin":
+                        break
+                    else:
+                        custom_list.append(file.capitalize())
+                if custom_list:
+                    file_list = custom_list
+                else:
+                    file_list = default_file_list
+
+            case "-dmas":
+                print(
+                    " \nEscribe uno por uno el nombre de los archivos que quieres añadir."
+                )
+                print("\nPara dejar de añadir archivos escribe fin.\n")
+
+                while True:
+
+                    file = input("nombre del archivo: ")
+                    if file.lower() == "fin":
+                        break
+                    else:
+                        default_file_list.append(file.capitalize())
+
+                file_list = default_file_list
+
+    except IndexError:
+        file_list = default_file_list
+
     # A list for the name of the subfolders
-    subfolders_list = ["Vectores", "Fondos", "Overlays"]
 
     # 2 Loop the list and:
     for file in file_list:
@@ -33,7 +85,7 @@ def create_files(folder_path):
             elif file_path.endswith("Imágenes"):
                 os.mkdir(file_path)
 
-                for subfolder in subfolders_list:
+                for subfolder in default_subfolders_list:
                     os.mkdir(subfolder)
                     shutil.move(subfolder, file_path)
 
@@ -48,7 +100,7 @@ def create_files(folder_path):
 
 while True:
     try:
-        folder_path = input("Dirección de la carpeta: ")
+        folder_path = input("\nDirección de la carpeta: ")
         create_files(folder_path)
         print("\nCarpetas creadas con exito!\n")
 
