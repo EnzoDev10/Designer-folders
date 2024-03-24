@@ -21,10 +21,10 @@ def create_files(folder_path):
 
     default_subfolders_list = ["Vectores", "Fondos", "Overlays"]
 
-    # Command list:
-    # -def:  Creates the default files
-    # -cust: Creates a new list of files from zero
-    # -dmas: Creates the default files plus some more
+    print("\ncomandos:")
+    print("-def: Crea los archivos por defecto.")
+    print("-cust: Crea una list de archivos propia.")
+    print("-dmas: Crea la lista por defecto mas archivos elegidos por el usuario.\n")
 
     try:
         match (sys.argv[1]):
